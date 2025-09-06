@@ -1,5 +1,7 @@
 #! /usr/bin/bash
 
+# Linux Commands & Shell Scripting IBM course, Module 3, Hands-on Lab: Advanced Bash Scripting, Exercise 3
+
 row_count=$(wc -l < arrays_table.csv)
 
 echo "Here is the number of rows: $row_count"
