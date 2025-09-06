@@ -1,0 +1,43 @@
+#! /usr/bin/bash
+
+row_count=$(wc -l < arrays_table.csv)
+
+echo "Here is the number of rows: $row_count"
+
+first_col=($(cut -d ',' -f1 arrays_table.csv | tail -n +2))
+second_col=($(cut -d ',' -f2 arrays_table.csv | tail -n +2))
+third_col=($(cut -d ',' -f3 arrays_table.csv | tail -n +2))
+
+echo "Here is the first column: ${first_col[@]}"
+echo "Here is the second column: ${second_col[@]}"
+echo "Here is the third column: ${third_col[@]}" 
+
+diff_array=('thr_minus_sec')
+
+for i in $(seq 0 $((row_count-2))); do
+	diff_array+=($((${third_col[i]} - ${second_col[i]})))
+	echo "Here is the current index: $i"
+	echo "Here is the current element value of diff_array: ${diff_array[$((i+1))]}"
+done
+
+echo "Here is the difference between the third and second columns: ${diff_array[@]}"
+
+touch tmp.csv
+# cp arrays_table.csv report.csv
+
+for i in $(seq 0 $((row_count-1))); do
+	echo ${diff_array[i]} >> tmp.csv
+	echo "Here is the current tmp file output: "; cat tmp.csv 
+done
+
+paste -d ',' arrays_table.csv tmp.csv > report.csv
+# cat tmp.csv arrays_table.csv > new_table.csv
+# cat tmp.csv >> new_table.csv
+rm tmp.csv
+echo "Here is the final csv file output with new appended column: "; cat report.csv
+
+# here is the column output to a txt file
+echo "${diff_array[0]}" > column_3.txt
+for ((i=1; i<row_count; i++)); do
+  echo "${diff_array[$i]}" >> column_3.txt
+done
