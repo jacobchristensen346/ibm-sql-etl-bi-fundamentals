@@ -4,7 +4,8 @@
 # it is the practice project for the Linux Commands and Shell Scripting IBM course
 
 # first create a log file to hold all of our final output
-echo -e "year\tmonth\tday\tobs_temp\tfc_temp">rx_poc.log
+# commented out since it only needs to happen once, don't keep doing it else the file is always overwritten!
+# echo -e "year\tmonth\tday\tobs_temp\tfc_temp">rx_poc.log
 
 # obtain the weather information for casablanca
 city_name=casablanca # assign city name to variable
