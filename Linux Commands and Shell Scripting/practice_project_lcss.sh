@@ -8,7 +8,7 @@ echo -e "year\tmonth\tday\tobs_temp\tfc_temp">rx_poc.log
 
 # obtain the weather information for casablanca
 city_name=casablanca # assign city name to variable
-curl wttr.in/$casablanca?T --output weather_report # insert variable into curl command and output into file
+curl wttr.in/$city_name?T --output weather_report # insert variable into curl command and output into file
 
 # now load current temperature into a variable
 # we first obtain the whole weather output for casablanca using the curl command
