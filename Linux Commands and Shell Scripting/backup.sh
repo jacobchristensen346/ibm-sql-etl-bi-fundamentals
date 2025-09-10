@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# this script is the final project from the Linux Commands and Shell Scripting IBM course
+# it tasked me with creating a script that would create a backup of important files in a target directory
+# the important files are copied into an archived and compressed folder and saved with a timestamp
+
+
 # This checks if the number of arguments is correct
 # If the number of arguments is incorrect ( $# != 2) print error message and exit
 if [[ $# != 2 ]]
@@ -25,7 +30,7 @@ echo "Here is the destination directory: $destinationDirectory"
 
 # [TASK 3]
 # the variable is set to the time in seconds since the Unix epoch (1970-01-01 00:00:00 UTC)
-currentTS=$(date +%s)
+currentTS=`date +%s`
 
 # [TASK 4]
 backupFileName="backup-$currentTS.tar.gz"
@@ -38,32 +43,32 @@ backupFileName="backup-$currentTS.tar.gz"
 # To make things easier, we will define some useful variables...
 
 # [TASK 5]
-origAbsPath=``
+origAbsPath=`pwd`
 
 # [TASK 6]
-cd # <-
-destDirAbsPath=``
+cd $destinationDirectory || exit
+destDirAbsPath=`pwd`
 
 # [TASK 7]
-cd # <-
-cd # <-
+cd $origAbsPath || exit
+cd $targetDirectory || exit
 
 # [TASK 8]
-yesterdayTS=
+yesterdayTS=$(($currentTS-(24*60*60)))
 
 declare -a toBackup
 
-for file in  # [TASK 9]
+for file in * # [TASK 9]
 do
   # [TASK 10]
-  if (())
+  if [[ $(date -r $file +%s) -gt $yesterdayTS ]]
   then
-    # [TASK 11]
+    toBackup+=($file) # [TASK 11]
   fi
 done
 
 # [TASK 12]
-
+tar -czvf $backupFileName ${toBackup[@]}
 # [TASK 13]
-
+mv $backupFileName $destDirAbsPath
 # Congratulations! You completed the final project for this course!
