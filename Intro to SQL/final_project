@@ -32,7 +32,7 @@ SELECT AVG(SAFETY_SCORE) FROM chicago_public_schools;
 
 -- Problem 8
 -- List the top 5 Community Areas by average College Enrollment [number of students]
-SELECT COMMUNITY_AREA_NAME, COLLEGE_ENROLLMENT FROM chicago_public_schools ORDER BY COLLEGE_ENROLLMENT DESC LIMIT 5;
+SELECT COMMUNITY_AREA_NAME, AVG(COLLEGE_ENROLLMENT) AS AVG_ENROLLMENT FROM chicago_public_schools GROUP BY COMMUNITY_AREA_NAME ORDER BY AVG_ENROLLMENT DESC LIMIT 5;
 
 --Problem 9
 -- Use a sub-query to determine which Community Area has the least value for school Safety Score?
